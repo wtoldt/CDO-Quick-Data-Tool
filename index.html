@@ -4,18 +4,32 @@
 <meta charset="utf-8"/>
 <script type="text/javascript" src="http://knockoutjs.com/downloads/knockout-3.0.0.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWrqr3XYjEc-xICLC__yLxZlN3M_sxKt0"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWrqr3XYjEc-xICLC__yLxZlN3M_sxKt0&libraries=places"></script>
   
 <title>CDO Quick Data Tool</title>
 <link type="text/css" rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
-	<div class="navbar">hello</div>  
+	<div class="navbar">
+		<div class="navbar-element settings-div">
+			<a href="" id="settings" data-bind="click: function() { return false; }">Settings</a>
+		</div><div class="navbar-element places-div">
+			<input class="places-input" id="google_geolocator" type="text" >
+		</div><div class="navbar-element other-div">
+			<!--TODO?-->
+		</div>
+	</div>  
 
 	<div class="main">
 		<div class="themap" id="map"></div>	
+		<img class="loading-image" src="http://micrositesbyu.com/Images/popup_loading.gif" data-bind="visible: loading">
 	</div>
+	
+	
   
 <script type="text/javascript" src="js/script.js"></script>
+<script>
+	ko.applyBindings(new QuickDataTool.ViewModel());
+</script>
 </body>
 </html>
