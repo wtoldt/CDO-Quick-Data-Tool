@@ -52,6 +52,7 @@ var QuickDataTool = (function () {
 		};
 
         /* initialize */
+		$("#google_geolocator").val("");
 		var mapOptions = {        
 			center: { lat: 39.10102067020093, lng: -101.07749658203123 },
 			zoom: 4,
@@ -103,8 +104,10 @@ var QuickDataTool = (function () {
 				self.results().forEach(function(result) {
 					var marker = new google.maps.Marker({
 						position:{lat: result.latitude, lng: result.longitude},
-						map: map
+						map: map,
+						title: result.id
 					});
+					console.log("result id " + result.id);
 					self.markers.push(marker);
 				});
 			}
