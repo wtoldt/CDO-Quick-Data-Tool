@@ -41,7 +41,7 @@ html, body {
 }
 
 .places-div {
-	width:39%;
+	width:40%;
 }
 
 .other-div {
@@ -50,6 +50,7 @@ html, body {
 
 .places-input {
 	width:90%;
+	height:23px;
 }
 
 .loading-image {
@@ -57,4 +58,17 @@ html, body {
 	bottom:5px;
 	right: 0;
 	z-index:11;
+}
+
+table.infowindow {
+	
+}
+
+table.infowindow thead  th {
+	color: white;
+	background-color:#080808;
+}
+
+table.infowindow tbody th {
+
 }

@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script type="text/javascript" src="http://knockoutjs.com/downloads/knockout-3.0.0.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWrqr3XYjEc-xICLC__yLxZlN3M_sxKt0&libraries=places"></script>
@@ -25,7 +26,27 @@
 		<img class="loading-image" src="http://micrositesbyu.com/Images/popup_loading.gif" data-bind="visible: loading">
 	</div>
 	
+	<div id="infowindow" style="display:none" data-bind="visible: infowindowOpen, with: selectedStation">	
+		<table class="infowindow">
+			<thead>
+				<tr><th colspan="2" data-bind="text: id"></th></tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>Name:</th>
+					<td data-bind="text: name"></td>
+				</tr>
+				<tr>
+					<th>Elevation(m):</th>
+					<td data-bind="text: elevation"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 	
+	<div id="infowindow-closing" style="display:none">
+		closing
+	</div>
   
 <script type="text/javascript" src="js/script.js"></script>
 <script>
