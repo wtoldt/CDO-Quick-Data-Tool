@@ -37,15 +37,16 @@ html, body {
 }
 
 .settings-div {
-	width:30%
+	width:12%;	
 }
 
 .places-div {
-	width:40%;
+	width:57%;
 }
 
 .other-div {
-	width:30%;
+	width:50px;
+	margin:0px;
 }
 
 .places-input {
@@ -55,7 +56,7 @@ html, body {
 
 .loading-image {
 	position:absolute;
-	bottom:5px;
+	bottom:8px;
 	right: 0;
 	z-index:11;
 }
@@ -70,5 +71,70 @@ table.infowindow thead  th {
 }
 
 table.infowindow tbody th {
+	text-align:left;
+}
 
+.datepicker-background {
+	position:absolute;
+	height:100%;
+	width:100%;
+	top:0;
+	left:0;
+	background-color:rgba(0,0,0,0.6);	
+	z-index:12;
+}
+
+.datepicker-container {
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	width: 300px;
+	top: 30%;
+}
+
+/* Date at a Glance */
+.daag-container {
+	height: 45px;
+    width: 35px;
+    background-color: #FFF;
+    position: relative;
+    border-radius: 2px;
+    border-bottom: 2px solid rgb(8, 8, 8);
+	cursor:pointer;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.daag-month {
+    display: inline-block;
+    font-size: 0.5em;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    letter-spacing: 0.3em;
+}
+
+.daag-day {
+    display: inline-block;
+    margin-top: 5px;
+    text-align: center;
+    width: 100%;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.daag-year {
+    display: inline-block;
+    color: #FFF;
+    background-color: #080808;
+    font-size: 0.5em;
+	padding-top:2px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    text-align: center;
+    letter-spacing: 0.2em;
 }

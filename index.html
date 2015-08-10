@@ -3,9 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script type="text/javascript" src="http://knockoutjs.com/downloads/knockout-3.0.0.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWrqr3XYjEc-xICLC__yLxZlN3M_sxKt0&libraries=places"></script>
+<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css"></link>
   
 <title>CDO Quick Data Tool</title>
 <link type="text/css" rel="stylesheet" href="css/style.css"/>
@@ -17,13 +15,19 @@
 		</div><div class="navbar-element places-div">
 			<input class="places-input" id="google_geolocator" type="text" >
 		</div><div class="navbar-element other-div">
-			<!--TODO?-->
+			<div class="daag-container" data-bind="click: showDatepicker">
+				<div class="daag-month" data-bind="text:getMonth">
+				</div><div class="daag-day" data-bind="text:getDay">
+				</div><div class="daag-year" data-bind="text:getYear">
+				</div>
+			</div>			
+			<input type="text" id="selectedDate" style="display:none;" data-bind="textInput: selectedDate">
 		</div>
 	</div>  
 
 	<div class="main">
 		<div class="themap" id="map"></div>	
-		<img class="loading-image" src="http://micrositesbyu.com/Images/popup_loading.gif" data-bind="visible: loading">
+		<img class="loading-image" src="icons/151.gif" data-bind="visible: loading">
 	</div>
 	
 	<div id="infowindow" style="display:none" data-bind="visible: infowindowOpen, with: selectedStation">	
@@ -47,7 +51,17 @@
 	<div id="infowindow-closing" style="display:none">
 		closing
 	</div>
-  
+	
+	<div class="datepicker-background" data-bind="visible:datepickerOpen">
+		<div class="datepicker-container">
+			<div id="datepicker"></div>
+		</div>
+	</div>
+	
+<script type="text/javascript" src="http://knockoutjs.com/downloads/knockout-3.3.0.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWrqr3XYjEc-xICLC__yLxZlN3M_sxKt0&libraries=places"></script>  
 <script type="text/javascript" src="js/script.js"></script>
 <script>
 	ko.applyBindings(new QuickDataTool.ViewModel());
