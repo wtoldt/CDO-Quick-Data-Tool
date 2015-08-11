@@ -8,6 +8,7 @@ var QuickDataTool = (function () {
 		self.errorMessages = ko.observableArray([]);
 		self.loading = ko.observable(false);
 		self.firstLoad = ko.observable(true);
+		self.settingsOpen = ko.observable(false);
 		
 		self.results = ko.observableArray([]);
 		self.markers = ko.observableArray([]);
@@ -84,6 +85,10 @@ var QuickDataTool = (function () {
 		
 		self.toggleDatepicker = function() {
 			self.datepickerOpen(!self.datepickerOpen());
+		}
+		
+		self.toggleSettings = function() {
+			self.settingsOpen(!self.settingsOpen());
 		}
 
         /* private methods */

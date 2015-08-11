@@ -11,7 +11,11 @@
 <body>
 	<div class="navbar">
 		<div class="navbar-element settings-div">
-			<a href="" id="settings" data-bind="click: function() { return false; }">Settings</a>
+			<a href="" id="settings" data-bind="click: toggleSettings">Settings</a>
+			<div class="settings-menu" style="display:none" data-bind="visible: settingsOpen">
+				<div class="arrow-up"></div>
+				settings
+			</div>
 		</div><div class="navbar-element places-div">
 			<input class="places-input" id="google_geolocator" type="text" >
 		</div><div class="navbar-element other-div">
@@ -52,7 +56,7 @@
 		closing
 	</div>
 	
-	<div class="datepicker-background" data-bind="visible:datepickerOpen">
+	<div class="datepicker-background" data-bind="visible:datepickerOpen; click:toggleDatepicker()">
 		<div class="datepicker-container">
 			<div id="datepicker"></div>
 		</div>
