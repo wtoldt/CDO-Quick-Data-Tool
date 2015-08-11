@@ -21,6 +21,7 @@ var QuickDataTool = (function () {
 		self.resultsLimit = ko.observable(25);
 		self.resultsOffset = ko.observable(1);
 		self.dataSet = ko.observable('GHCND');
+		self.maxDate = ko.observable();
 		self.selectedDate = ko.observable();
 		self.datepickerOpen = ko.observable(false);
 		
@@ -73,7 +74,9 @@ var QuickDataTool = (function () {
 			cdoToken = 'IdNEXjwZWEjvmkHMrRgJLNfxijCdyzFC',
 			cdoApi = {
 				base: 'http://www.ncdc.noaa.gov/cdo-web/api/v2',
-				stations: '/stations'
+				stations: '/stations',
+				datasets: '/datasets',
+				data: '/data'
 			},
 			cdoRequest;
 
@@ -83,7 +86,7 @@ var QuickDataTool = (function () {
             self.datepickerOpen(true);
         };
 		
-		self.toggleDatepicker = function() {
+		self.toggleDatepicker = function() {			
 			self.datepickerOpen(!self.datepickerOpen());
 		}
 		
@@ -176,9 +179,30 @@ var QuickDataTool = (function () {
 				safelyCloseInfowindow($node);
 			});
 		};
+		
+		var fetchMaxDate = function() {
+			var url = cdoApi.base + cdoApi.datasets + "/" + self.dataSet();
+			$.ajax({
+				'url':url,
+				headers: {
+					token: cdoToken
+				}
+			}).done(function(response) {
+				self.maxDate(response.maxdate);
+				datepicker.datepicker( "option", "maxDate", response.maxdate );
+			}).fail(function(response) {
+				console.log("fetchMaxDate has failed");
+			}).always(function() {
+			
+			});
+		}
 
         /* initialize */
+		// Clear geolocator input
 		$("#google_geolocator").val("");
+		
+		// Get maxdate of datset and set datepicker maxdate
+		fetchMaxDate();
 		
 		var mapOptions = {        
 			center: { lat: 39.10102067020093, lng: -101.07749658203123 },
@@ -215,10 +239,7 @@ var QuickDataTool = (function () {
 
 		});
 		
-		$('#google_geolocator').focus(function() {
-			this.select();
-		});
-		
+				
 		/* events */
 		self.results.subscribe(function() {
 			if (self.results() && self.results().length > 0) {

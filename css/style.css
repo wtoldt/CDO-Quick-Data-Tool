@@ -40,6 +40,16 @@ html, body {
 	width:12%;	
 }
 
+.settings-menu-background {
+	position:fixed;
+	height:100%;
+	width:100%;
+	top:0;
+	left:0;
+	background-color:rgba(0,0,0,0.0);	
+	z-index:12;
+}
+
 .settings-menu {
 	width: 150px;
 	height: 150px;
@@ -48,6 +58,7 @@ html, body {
 	top: 42px;
 	padding:5px;
 	border-radius:2px;
+	z-index:13
 }
 
 .arrow-up {
@@ -71,12 +82,12 @@ html, body {
 }
 
 .places-input {
-	width:90%;
+	width:100%;
 	height:23px;
 }
 
 .loading-image {
-	position:absolute;
+	position:fixed;
 	bottom:8px;
 	right: 0;
 	z-index:11;
@@ -88,7 +99,7 @@ table.infowindow {
 
 table.infowindow thead  th {
 	color: white;
-	background-color:#080808;
+	background-color:#444;
 }
 
 table.infowindow tbody th {
@@ -96,7 +107,7 @@ table.infowindow tbody th {
 }
 
 .datepicker-background {
-	position:absolute;
+	position:fixed;
 	height:100%;
 	width:100%;
 	top:0;
@@ -115,12 +126,12 @@ table.infowindow tbody th {
 
 /* Date at a Glance */
 .daag-container {
-	height: 45px;
+	height: 43px;
     width: 35px;
     background-color: #FFF;
     position: relative;
     border-radius: 2px;
-    border-bottom: 2px solid rgb(8, 8, 8);
+    border-bottom: 2px solid #444;
 	cursor:pointer;
 	margin-left: auto;
 	margin-right: auto;
@@ -149,7 +160,7 @@ table.infowindow tbody th {
 .daag-year {
     display: inline-block;
     color: #FFF;
-    background-color: #080808;
+    background-color: #444;
     font-size: 0.5em;
 	padding-top:2px;
     position: absolute;
