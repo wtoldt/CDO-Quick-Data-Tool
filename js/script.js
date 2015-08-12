@@ -63,10 +63,11 @@ var QuickDataTool = (function () {
 				altField: "#selectedDate",
 				changeMonth: true,
 				changeYear: true,
+				showButtonPanel: true,
 				onSelect: function(dateText) {
 					self.selectedDate(dateText);
 					self.datepickerOpen(false);
-				}
+				}				
 			}),
             now = new Date(),
 			map,
@@ -190,6 +191,8 @@ var QuickDataTool = (function () {
 			}).done(function(response) {
 				self.maxDate(response.maxdate);
 				datepicker.datepicker( "option", "maxDate", response.maxdate );
+				datepicker.datepicker( "setDate", response.maxdate );
+				self.selectedDate(response.maxdate.substring(0,10));
 			}).fail(function(response) {
 				console.log("fetchMaxDate has failed");
 			}).always(function() {
