@@ -21,9 +21,9 @@
 			<input class="places-input" id="google_geolocator" type="text" >
 		</div><div class="navbar-element other-div">
 			<div class="daag-container" data-bind="click: toggleDatepicker">
-				<div class="daag-month" data-bind="text:getMonth">
-				</div><div class="daag-day" data-bind="text:getDay">
-				</div><div class="daag-year" data-bind="text:getYear">
+				<div class="daag-month" data-bind="text:getMonth">&nbsp;
+				</div><div class="daag-day" data-bind="text:getDay">&nbsp;
+				</div><div class="daag-year" data-bind="text:getYear">&nbsp;
 				</div>
 			</div>			
 			<input type="text" id="selectedDate" style="display:none;" data-bind="textInput: selectedDate">
@@ -38,17 +38,25 @@
 	<div id="infowindow" style="display:none" data-bind="visible: infowindowOpen, with: selectedStation">	
 		<table class="infowindow">
 			<thead>
-				<tr><th colspan="2" data-bind="text: id"></th></tr>
+				<tr><th colspan="2" data-bind="text: id.substring(6)"></th></tr>
 			</thead>
 			<tbody>
 				<tr>
 					<th>Name:</th>
-					<td data-bind="text: name"></td>
+					<td><span data-bind="attr: { title: name }, text: name.substring(0,7) + '...'"></span></td>
 				</tr>
 				<tr>
-					<th>Elevation(m):</th>
-					<td data-bind="text: elevation"></td>
+					<th>Max Date:</th>
+					<td data-bind="text: maxdate"></td>
 				</tr>
+				<!-- ko foreach: $root.selectedData() -->
+				<tr>
+					<th data-bind="text: name"></th>
+					<td><span data-bind="text: value"></span>
+						<span data-bind="text: units"></span>
+					</td>
+				</tr>
+				<!-- /ko -->
 			</tbody>
 		</table>
 	</div>
@@ -57,9 +65,12 @@
 		closing
 	</div>
 	
-	<div class="datepicker-background" data-bind="visible:datepickerOpen, click: function() {toggleDatepicker()}">
+	<div class="datepicker-background" style="display:none" data-bind="visible:datepickerOpen, click: function() {toggleDatepicker()}">
 		<div class="datepicker-container">
 			<div id="datepicker"></div>
+			<div class="datepicker-maxdatemessage">
+				Most Recent Data: <span data-bind="text: maxDate"></span>
+			</div>
 		</div>
 	</div>
 	

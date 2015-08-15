@@ -121,7 +121,17 @@ table.infowindow tbody th {
 	margin-right: auto;
 	position: relative;
 	width: 300px;
-	top: 30%;
+	top: 25%;
+}
+
+.datepicker-maxdatemessage {
+	margin-top: 10px;
+	background-color: rgb(221, 221, 221);
+	text-align: center;
+	padding: 5px;
+	border-radius: 2px;
+	width: 100%;
+	color: #444;
 }
 
 /* Date at a Glance */
