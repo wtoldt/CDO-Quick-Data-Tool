@@ -106,7 +106,7 @@ table.infowindow tbody th {
 	text-align:left;
 }
 
-.datepicker-background {
+.date-picker-background {
 	position:fixed;
 	height:100%;
 	width:100%;
@@ -116,7 +116,7 @@ table.infowindow tbody th {
 	z-index:12;
 }
 
-.datepicker-container {
+.date-picker-container {
 	margin-left: auto;
 	margin-right: auto;
 	position: relative;
@@ -141,7 +141,7 @@ table.infowindow tbody th {
     background-color: #FFF;
     position: relative;
     border-radius: 2px;
-    border-bottom: 2px solid #444;
+    border-bottom: 1px solid #444;
 	cursor:pointer;
 	margin-left: auto;
 	margin-right: auto;
@@ -170,9 +170,9 @@ table.infowindow tbody th {
 .daag-year {
     display: inline-block;
     color: #FFF;
-    background-color: #444;
+    background-color: #333;
     font-size: 0.5em;
-	padding-top:2px;
+	padding-top:0.1em;
     position: absolute;
     bottom: 0px;
     left: 0px;
