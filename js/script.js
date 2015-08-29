@@ -18,7 +18,7 @@ var QuickDataTool = (function () {
 		self.selectedStation = ko.observable();
 		self.selectedMarker = ko.observable();
 		self.selectedData = ko.observableArray([]);
-		self.infowindowOpen = ko.observable(true);
+		self.infowindowOpen = ko.observable(false);
 
 		self.extent = ko.observable();
 		self.resultsLimit = ko.observable(25);
@@ -92,18 +92,18 @@ var QuickDataTool = (function () {
             self.datepickerOpen(true);
         };
 
-		self.toggleDatepicker = function(data, event) {			
+		self.toggleDatepicker = function(data, event) {
 			// If click came from datepicker, do not toggle
 			//		TODO: This is a poor solution, find a better one
 			if (event.target.className.indexOf('datepicker') == -1) {
-				self.datepickerOpen(!self.datepickerOpen());	
-			}			
-		}		
+				self.datepickerOpen(!self.datepickerOpen());
+			}
+		}
 
 		self.toggleSettings = function() {
 			self.settingsOpen(!self.settingsOpen());
 		}
-		
+
 		self.composeQuickDataUrl = function(station) {
 			// "/cdo-web/quickdatapdf/GHCND:USC00168941_2005-8-1.pdf?datasetId=GHCND&amp;productId=GHCN_DAILY_FORM&amp;stationId=GHCND:USC00168941&amp;year=2005&amp;month=8&amp;day=1"
 			var base = "http://www.ncdc.noaa.gov/cdo-web/quickdatapdf/",
@@ -114,7 +114,7 @@ var QuickDataTool = (function () {
 				year = "year=" + self.selectedDate().substring(0,4),
 				month = "month=" + self.selectedDate().substring(5,7),
 				day = "day=" + self.selectedDate().substring(8,10);
-				
+
 			return base + pdfname + '?' + [dataset, product, station, year, month, day].join('&');
 		}
 
@@ -149,7 +149,7 @@ var QuickDataTool = (function () {
 					'includemetadata=false'
 				];
 			return url + '?' + parameters.join("&");
-		};		
+		};
 
 		var clearMarkers = function() {
 			if (self.markers()) {

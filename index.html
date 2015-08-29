@@ -26,18 +26,18 @@
 				</div><div class="daag-day" data-bind="text:getDay">&nbsp;
 				</div><div class="daag-year" data-bind="text:getYear">&nbsp;
 				</div>
-			</div>			
+			</div>
 			<input type="text" id="selectedDate" style="display:none;" data-bind="textInput: selectedDate">
 		</div>
-	</div>  
+	</div>
 
 	<div class="main">
-		<div class="themap" id="map"></div>	
+		<div class="themap" id="map"></div>
 		<!--<img class="loading-image" src="icons/151.gif" data-bind="visible: loading"> -->
 		<i class="fa fa-spinner fa-3x fa-pulse loading-image" data-bind="visible: loading"></i>
 	</div>
-	
-	<div id="infowindow" style="display:none" data-bind="visible: infowindowOpen, with: selectedStation">	
+
+	<div id="infowindow" style="display:none" data-bind="visible: infowindowOpen, with: selectedStation">
 		<table class="infowindow">
 			<thead>
 				<tr><th colspan="2" data-bind="text: id.substring(6)"></th></tr>
@@ -67,11 +67,11 @@
 			</tbody>
 		</table>
 	</div>
-	
+
 	<div id="infowindow-closing" style="display:none">
 		closing
 	</div>
-	
+
 	<div class="date-picker-background" style="display:none" data-bind="visible:datepickerOpen, click: toggleDatepicker">
 		<div class="date-picker-container">
 			<div id="datepicker"></div>
@@ -80,11 +80,11 @@
 			</div>
 		</div>
 	</div>
-	
+
 <script type="text/javascript" src="http://knockoutjs.com/downloads/knockout-3.3.0.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWrqr3XYjEc-xICLC__yLxZlN3M_sxKt0&libraries=places"></script>  
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWrqr3XYjEc-xICLC__yLxZlN3M_sxKt0&libraries=places"></script>
 <script type="text/javascript" src="js/script.js"></script>
 <script>
 	ko.applyBindings(new QuickDataTool.ViewModel());
