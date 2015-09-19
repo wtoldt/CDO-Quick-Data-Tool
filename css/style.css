@@ -25,7 +25,7 @@ html, body {
 	width: 100%;
 	z-index: 11;
 	background-color: #808080;
-	opacity: 0.8;
+	opacity: 0.85;
 }
 .navbar:hover {
 	opacity: 1.0;
@@ -50,15 +50,51 @@ html, body {
 	z-index:12;
 }
 
-.settings-menu {
-	width: 150px;
-	height: 150px;
+.settings-menu-container {
+	width: 25%;
+	min-width:222px;
+	max-width:300px;
 	background-color: #FFF;
 	position: absolute;
 	top: 42px;
-	padding:5px;
+	padding-top:1px;
 	border-radius:2px;
+	border:1px solid white;
 	z-index:13
+}
+
+.settings-menu {
+	display:inline-block;
+	border-bottom:.05em solid white;
+	background-color: #CFDBDA;
+	padding-top:1em;
+	padding-bottom: 1em;
+	margin-left:0.05em;
+}
+
+.settings-menu.about {
+	width:99%;
+	text-align: center;
+	cursor:pointer;
+	background-color: #3B66FF;
+	color: white;
+}
+
+.settings-menu.item {
+	width:60%;
+}
+
+.settings-menu.option {
+	width:19%;
+	text-align: center;
+	cursor:pointer;
+	border-left:.05em solid white;
+
+}
+
+.settings-menu.option.active{
+	background-color: #3B66FF;
+	color: white;
 }
 
 .arrow-up {
