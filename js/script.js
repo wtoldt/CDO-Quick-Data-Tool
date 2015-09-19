@@ -4,33 +4,52 @@ var QuickDataTool = (function () {
     quickDataTool.ViewModel = function() {
         var self = this,
 			now = new Date();
-		now.setDate(now.getDate()-5);
+		now.setDate(now.getDate()-15);
 
         /* public fields */
+		//	App status / messages
 		self.errorMessages = ko.observableArray([]);
 		self.loading = ko.observable(false);
 		self.firstLoad = ko.observable(true);
 		self.settingsOpen = ko.observable(false);
+		self.infowindowOpen = ko.observable(false);
+		self.datepickerOpen = ko.observable(false);
 
-		self.results = ko.observableArray([]);
-		self.markers = ko.observableArray([]);
+		// Available datasets
+		//todo: flush out idea of multiple datasets
+		//		* Have datatypes array
+		//		* Ex: [{id:'TMIN', unit:'TEMP'}, ...]
+		//		* Available Units array
+		//		* Ex: [{id:'TEMP', options:['C', 'F']}, ...]
+		//		* SelectedUnitId observable for each avaibale unit
+		//		* Ex: self['selected'+unit.id]()
+		//		* ScaleValue function (datatype, value)
+		self.availableDatasets = [{id:'GHCND', product:'GHCND_DAILY_FORM'}];
+		self.availableDatatypes = ['PRCP','SNOW','TMAX','TMIN','TAVG'];
+		self.availableUnits = [{id:'TEMP', options:['C','F']}, {id:'PRCP', options:['mm','in']}];
+
+		// Selected values
 		self.selectedInfowindow = ko.observable();
 		self.selectedStation = ko.observable();
 		self.selectedMarker = ko.observable();
 		self.selectedData = ko.observableArray([]);
-		self.infowindowOpen = ko.observable(false);
+		self.selectedDate = ko.observable(now.toISOString().substring(0,10));
+		self.selectedDataset = ko.observable(self.availableDatasets[0]);
+		self.selectedTEMP = ko.observable('C');
+		self.selectedPRCP = ko.observable('mm');
 
+		// Map variables
+		self.results = ko.observableArray([]);
+		self.markers = ko.observableArray([]);
 		self.extent = ko.observable();
+
+		// Misc config
 		self.resultsLimit = ko.observable(25);
 		self.resultsOffset = ko.observable(1);
 		self.dataSet = ko.observable('GHCND');
-		//todo: flush out idea of multiple datasets
-		//self.availableDatasets = [{id:'GHCND', product:'GHCND_FORM', scaleValue: function(datatype, value){} },{}];
-		//self.selectedDataset = ko.observable();
 		self.maxDate = ko.observable();
-		self.selectedDate = ko.observable(now.toISOString().substring(0,10));
-		self.datepickerOpen = ko.observable(false);
 
+		// Date-at-a-glance computables
 		self.getYear = ko.pureComputed(function() {
            var year;
             if (self.selectedDate()) {
@@ -88,6 +107,14 @@ var QuickDataTool = (function () {
 
 
         /* public methods */
+		self.setSelectedTEMP = function(value) {
+			self.selectedTEMP(value);
+		};
+
+		self.setSelectedPRCP = function(value) {
+			self.selectedPRCP(value);
+		};
+
 		self.showDatepicker = function() {
             self.datepickerOpen(true);
         };
@@ -95,14 +122,15 @@ var QuickDataTool = (function () {
 		self.toggleDatepicker = function(data, event) {
 			// If click came from datepicker, do not toggle
 			//		TODO: This is a poor solution, find a better one
-			if (event.target.className.indexOf('datepicker') == -1) {
+			if (event.target.className.indexOf('datepicker') == -1
+				&& event.target.className.indexOf('ui-icon-circle-triangle') == -1) {
 				self.datepickerOpen(!self.datepickerOpen());
 			}
-		}
+		};
 
 		self.toggleSettings = function() {
 			self.settingsOpen(!self.settingsOpen());
-		}
+		};
 
 		self.composeQuickDataUrl = function(station) {
 			// "/cdo-web/quickdatapdf/GHCND:USC00168941_2005-8-1.pdf?datasetId=GHCND&amp;productId=GHCN_DAILY_FORM&amp;stationId=GHCND:USC00168941&amp;year=2005&amp;month=8&amp;day=1"
@@ -116,9 +144,42 @@ var QuickDataTool = (function () {
 				day = "day=" + self.selectedDate().substring(8,10);
 
 			return base + pdfname + '?' + [dataset, product, station, year, month, day].join('&');
-		}
+		};
 
         /* private methods */
+		var scaleValue = function(result) {
+			var datum = {
+				name: result.datatype,
+				value: Number(result.value)
+			};
+
+			//TEMP value
+			if (['TMAX','TMIN','TAVG'].indexOf(datum.name) != -1) {
+				//scale value, set unit
+				datum.value = datum.value/10;
+				datum.units = "(C)";
+					if (self.selectedTEMP() == 'F') {
+						//Convert from c to f
+						datum.value = datum.value * (9/5) + 32;
+						datum.units = "(F)";
+					}
+				datum.value = Math.round(datum.value * 100) / 100
+				return datum;
+			} else {
+				datum.units = "(mm)";
+				//scale prcp value, leave snow alone
+				if (datum.name == 'PRCP') {
+					datum.value = datum.value/10;
+				}
+				if (self.selectedPRCP() == 'in') {
+					datum.value = datum.value * 0.039370;
+					datum.units = "(in)";
+				}
+				datum.value = Math.round(datum.value * 100) / 100
+				return datum;
+			}
+		};
+
 		var composeStationsUrl = function() {
 			var url = cdoApi.base + cdoApi.stations,
 				parameters = [
@@ -213,26 +274,7 @@ var QuickDataTool = (function () {
 				var data = [];
 				if (Object.getOwnPropertyNames(response).length > 0) {
 					response.results.forEach(function(result) {
-						var datum = {
-							name: result.datatype,
-							value: Number(result.value)
-						};
-						switch (result.datatype) {
-							case 'PRCP':
-								datum.value = datum.value/10;
-								datum.units = "(mm)";
-								break;
-							case 'SNOW':
-								datum.units = "(mm)";
-								break;
-							case 'TMAX':
-							case 'TMIN':
-							case 'TAVG':
-								datum.value = datum.value/10;
-								datum.units = "(C)";
-								break;
-						}
-						data.push(datum);
+						data.push(scaleValue(result));
 					});
 				} else {
 					data.push({name:'Sorry,', value:' no data', units:' :('});
@@ -292,8 +334,10 @@ var QuickDataTool = (function () {
 				datepicker.datepicker( "option", "maxDate", response.maxdate );
 
 				/* if (currentdate > maxdate) {
-					datepicker.datepicker( "setDate", response.maxdate );
-					self.selectedDate(response.maxdate.substring(0,10));
+					currentdate = new Date(Date.UTC(self.maxDate()));
+					currentdate.setUTCDate(currentdate.getUTCDate() -5);
+					datepicker.datepicker( "setDate", currentdate );
+					self.selectedDate(currentdate.toISOString().substring(0,10));
 				}	 */
 			}).fail(function(response) {
 				console.log("fetchMaxDate has failed");
@@ -368,6 +412,19 @@ var QuickDataTool = (function () {
 				safelyCloseInfowindow();
 			}
 		});
+
+		self.selectedTEMP.subscribe(function() {
+			if (self.infowindowOpen()) {
+				safelyCloseInfowindow();
+			}
+		});
+
+		self.selectedPRCP.subscribe(function() {
+			if (self.infowindowOpen()) {
+				safelyCloseInfowindow();
+			}
+		});
+
     };
 
     return quickDataTool;

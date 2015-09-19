@@ -12,11 +12,27 @@
 <body>
 	<div class="navbar">
 		<div class="navbar-element settings-div">
-			<a href="" id="settings" data-bind="click: toggleSettings">Settings</a>
+			<a href="" id="settings" data-bind="click: toggleSettings"> <i class="fa fa-cog" style="color:#333"></i> </a>
 			<div class="settings-menu-background" style="display:none" data-bind="visible: settingsOpen, click: toggleSettings">&nbsp;</div>
-			<div class="settings-menu" style="display:none" data-bind="visible: settingsOpen">
+			<div class="settings-menu-container" style="display:none" data-bind="visible: settingsOpen">
 				<div class="arrow-up"></div>
-				settings
+				<!-- temperature units -->
+				<div>
+					<div class="settings-menu item">Temperature
+					</div><div class="settings-menu option"
+						data-bind="css: { active: selectedTEMP() == 'C'}, click: setSelectedTEMP.bind($data, 'C')">C&deg;
+					</div><div class="settings-menu option"
+						data-bind="css: { active: selectedTEMP() == 'F'}, click: setSelectedTEMP.bind($data, 'F')">F&deg;</div>
+				</div>
+				<!-- precip units -->
+				<div>
+					<div class="settings-menu item">Precipitation
+					</div><div class="settings-menu option"
+						data-bind="css: { active: selectedPRCP() == 'mm'}, click: setSelectedPRCP.bind($data, 'mm')">mm
+					</div><div class="settings-menu option"
+						data-bind="css: { active: selectedPRCP() == 'in'}, click: setSelectedPRCP.bind($data, 'in')">in</div>
+				</div>
+				<!-- <div class="settings-menu about">About</div> -->
 			</div>
 		</div><div class="navbar-element places-div">
 			<input class="places-input" id="google_geolocator" type="text" >
@@ -46,10 +62,6 @@
 				<tr>
 					<th>Name:</th>
 					<td><span data-bind="attr: { title: name }, text: name.substring(0,7) + '...'"></span></td>
-				</tr>
-				<tr>
-					<th>Max Date:</th>
-					<td data-bind="text: maxdate"></td>
 				</tr>
 				<!-- ko foreach: $root.selectedData() -->
 				<tr>
