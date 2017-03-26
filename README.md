@@ -1,37 +1,28 @@
-CDO-Quick-Data-Tool
-====
+# CdoQuickDataTool
 
-A single page web app to get quick data from Climate Data Online.
-[See it in action](http://wtoldt.github.io/CDO-Quick-Data-Tool/)
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
 
-What is Quick Data?
-----
+## Development server
 
-[Climate Data Online](http://www.ncdc.noaa.gov/cdo-web) allows users access to PDF forms of weather data, among many other weather data products. CDO is intended to allow users to place orders for lots of PDF forms, or get a single PDF form instantly. Orders are processed offline and transferred to a public FTP server while the "quick data" is available through the website on stations pages [such as this one](http://www.ncdc.noaa.gov/cdo-web/datasets/GHCND/stations/GHCND:USC00100010/detail). This tool is designed to give users a shortcut to this "quick data" feature.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+## Code scaffolding
 
-Usage
-----
-1. **Select a date**
-Click the "date at a glace" icon on the right side of the top bar and choose a day on the date picker.
-2. **Select a location**
-Type your desired location into the top bar or just start scrolling and panning away on the map.
-3. **Click a marker to see station information**
-Station ID, name, and a link to quick data PDF for that day appear in a balloon. If the station reports data for any of the 5 core GHCND elements, that data is also displayed.
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
 
-GHCND Elements
-----
-+ **TMAX** Maximum temperature for the day.
-+ **TMIN** Minimum temperature for the day.
-+ **TAVG** Average temperature for the day.
-+ **SNOW** How much it snowed that day.
-+ **PRCP** How much it rained that day.
+## Build
 
-Planned Features
-----
-Currently, only the [GHCND dataset](http://www.ncdc.noaa.gov/cdo-web/datasets#GHCND) is supported. I'd like to be support [GHCNDMS](http://www.ncdc.noaa.gov/cdo-web/datasets#GHCNDMS) and [Normals Monthly](http://www.ncdc.noaa.gov/cdo-web/datasets#NORMAL_MLY) datasets as well.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-However, when I went to implement support for these datasets I realized that a calendar with year/month/day didn't make sense for monthly data, or data that represents 30 year averages. In an ideal world, I would build out my "date at a glance" idea and replace the JQuery datepicker with a custom rolled solution that can elegantly handle day/month/year, month/year, and just month selections.
+## Running unit tests
 
-The project also uses my personal CDO API Token, Ideally I'd offer users the option of changing the token parameter.
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Before running the tests make sure you are serving the app via `ng serve`.
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
