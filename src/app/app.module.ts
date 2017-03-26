@@ -6,6 +6,8 @@ import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { CdoService } from './cdo-service.service';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -16,7 +18,7 @@ import { AppComponent } from './app.component';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [CdoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

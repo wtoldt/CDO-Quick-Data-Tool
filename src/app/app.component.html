@@ -1,4 +1,10 @@
-<h1>
-  {{title}}
-</h1>
-<router-outlet></router-outlet>
+<ul *ngFor='let result of cdoResponse.results'>
+  <li>&#123;</li>
+  <li>
+      <ul *ngFor='let key of getKeys(result)'>
+        <li>{{ key }} : {{ result[key] }} </li>
+      </ul>
+  </li>
+  <li>&#125;</li>
+</ul>
+<button type="button" (click)="getData()">get data</button>
