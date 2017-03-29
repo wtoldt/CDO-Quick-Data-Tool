@@ -19,9 +19,20 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.css",
+        "../node_modules/leaflet/dist/leaflet.css",
+        "../node_modules/esri-leaflet/site/build/css/style.css",
+        "../node_modules/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css",
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/leaflet/dist/leaflet.js",
+        "../node_modules/esri-leaflet/dist/esri-leaflet.js",
+        "../node_modules/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.js",
+        "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js"
+        
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
