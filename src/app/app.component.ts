@@ -37,8 +37,18 @@ export class AppComponent implements OnInit{
   }
 
   onResize(event) {
-    window.document.getElementById('map').style.height = 
-        event.target.innerHeight + 'px';
+    let windowHeight: number,
+        navHeight: number;
+
+    windowHeight = event.target.innerHeight;
+    navHeight = window.document.getElementById('nav').clientHeight;
+    console.log(navHeight);
+
+     window.document.getElementById('map').style.height =
+        (windowHeight - navHeight) + 'px';
+    
+    //window.document.getElementById('map').style.height = 
+      //  event.target.innerHeight + 'px';
   }
 
   getKeys(obj) {
