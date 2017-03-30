@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 
 import { CdoService } from './cdo-service.service';
 import { CdoResponse } from './cdo-response.class';
+import { CdoStationRequest } from './cdo-stations-request.class';
 
 declare var L:any;
 
@@ -32,6 +33,18 @@ export class AppComponent implements OnInit{
     
     searchControl.on('results', data => {
       console.log(data);
+    });
+
+    // idle event doesn't exist, make due with what we got
+    this.map.on('load moveend', e => {
+      let stationRequest = new CdoStationRequest(),
+          bounds = this.map.getBounds();
+      stationRequest.datasetid = 'GHCND';
+      stationRequest.extent = 
+        `${bounds.getSouth()},${bounds.getWest()},${bounds.getNorth()}${bounds.getEast()}`;
+      stationRequest.startdate = '2017-01-01T00:00';
+      stationRequest.enddate = '2017-01-01T23:59';
+      
     });
 
   }
