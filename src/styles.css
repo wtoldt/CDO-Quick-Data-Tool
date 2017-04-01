@@ -11,8 +11,23 @@ body {
 #map {
     height: 720px
 }
-input .form-control.date {
+
+.leaflet-container.loading {
+  cursor: progress !important;
+}
+
+.form-control.date {
     background-color:darkgray;
     border-color:gray;
     width:150px
 }
+
+.spin {
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }

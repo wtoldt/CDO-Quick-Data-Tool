@@ -38,6 +38,17 @@ export class CdoService {
       .catch( error => this.handleError(error) );
   }
 
+  getDatasetMaxDate(datasetid: string): Observable<string> {
+    let headers = new Headers();
+    headers.set('token', this.token);
+
+    let url = `${this.baseUrl}/datasets/${datasetid}`;
+
+    return this.http.get(url, {'headers': headers})
+      .map( response => response.json().maxdate)
+      .catch( error => this.handleError(error));
+  }
+
   private handleStationsResponse(response: Response): CdoStation[] {
     let body = response.json(),
         stations: CdoStation[] = [];

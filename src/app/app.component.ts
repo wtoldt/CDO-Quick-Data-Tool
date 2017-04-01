@@ -5,7 +5,8 @@ import { CdoResponse } from './cdo-response.class';
 import { CdoStationRequest } from './cdo-stations-request.class';
 import { CdoStation  } from './cdo-station.class';
 
-declare var L:any;
+declare var L: any;
+declare var $: any;
 
 @Component({
   selector: 'app-root',
@@ -14,12 +15,17 @@ declare var L:any;
 })
 export class AppComponent implements OnInit{
   cdoResponse = new CdoResponse();
-  map:any;
+  map: any;
   markerLayer: any = L.layerGroup();
+  date = "";
+  loading = false;
 
   constructor (private cdoService: CdoService) { }
 
-  ngOnInit() {    
+  ngOnInit() {
+    this.cdoService.getDatasetMaxDate('GHCND').subscribe( date => {
+      this.date = date;
+    });
     this.onResize();
 
     this.map = L.map('map').setView([43.61, -98.50], 4);
@@ -45,9 +51,18 @@ export class AppComponent implements OnInit{
       stationRequest.startdate = '2017-01-01T00:00:00';
       stationRequest.enddate = '2017-01-01T23:59:59';
       
-      this.cdoService.getStations(stationRequest).subscribe( (stations: CdoStation[]) => {
-        this.refreshStationMarkers(stations);        
-      });
+      this.loading = true;
+      $('.leaflet-container').addClass('loading');
+      this.cdoService.getStations(stationRequest).subscribe( 
+        (stations: CdoStation[]) => {
+          this.refreshStationMarkers(stations);
+        },
+        error => {console.log(error)},
+        () => {
+          this.loading = false;
+          $('.leaflet-container').removeClass('loading');
+        }
+      );
     });
   }
 
@@ -74,24 +89,28 @@ export class AppComponent implements OnInit{
 
   makePopupContent(station: CdoStation): string {
     let content = `
-      <table border="1">
-        <tr>
-          <th>Name:</th>
-          <td>${station.name}</td>
-        </tr>
-        <tr>
-          <th>Lat:</th>
-          <td>${station.latitude}</td>
-        </tr>
-        <tr>
-          <th>Lon:</th>
-          <td>${station.longitude}</td>
-        </tr>
-      </table>
+      <div class="container-fluid">
+        <div class="row">
+
+          <div class="col-md-12">
+            <h3>
+              ${station.name} <br />
+              <small>${station.id}</small>
+            </h3>
+          </div>
+
+          <div class="col-md-12" style="text-align:center">
+            <h1><span class="glyphicon glyphicon-cd spin" aria-hidden="true"></span></h1>
+          </div>
+
+        </div>
+      </div>
     `;
 
     return content;
   }
+
+
 
   onDateUpdate(date) {
     console.log(date);
