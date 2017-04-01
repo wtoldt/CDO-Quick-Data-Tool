@@ -20,7 +20,10 @@ export class CdoStationRequest {
         if (stationRequest.enddate != null) {
             params.set("enddate", stationRequest.enddate);
         }
-        params.set('limit', '300');
+        params.set('limit', '100');
+        params.set('offset', '0');
+        params.set('sortfield', 'name');
+        params.set('includemetadata', 'false');
 
         return params;
     }

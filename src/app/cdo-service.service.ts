@@ -14,7 +14,7 @@ export class CdoService {
 
   constructor(private http: Http) { }
 
-  getStations(stationRequest: CdoStationRequest): Observable<CdoResponse> {
+  getStations(stationRequest: CdoStationRequest): Observable<CdoStation[]> {
     let headers = new Headers(),    
         params: URLSearchParams = CdoStationRequest.toSearchParams(stationRequest);
 
@@ -38,7 +38,7 @@ export class CdoService {
       .catch( error => this.handleError(error) );
   }
 
-  private handleStationsResponse(response: Response): any {
+  private handleStationsResponse(response: Response): CdoStation[] {
     let body = response.json(),
         stations: CdoStation[] = [];
     
