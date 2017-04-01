@@ -1,8 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+    overflow: hidden !important;
+}
 body {
     margin:0px;
     padding:0px;
-    padding-top: 56px;
+    padding-top: 50px;
+    overflow: hidden;
 }
 #map {
     height: 720px

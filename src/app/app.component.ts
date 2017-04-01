@@ -92,4 +92,8 @@ export class AppComponent implements OnInit{
 
     return content;
   }
+
+  onDateUpdate(date) {
+    console.log(date);
+  }
 }
