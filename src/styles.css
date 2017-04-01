@@ -11,3 +11,8 @@ body {
 #map {
     height: 720px
 }
+input .form-control.date {
+    background-color:darkgray;
+    border-color:gray;
+    width:150px
+}
