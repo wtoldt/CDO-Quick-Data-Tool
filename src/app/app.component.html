@@ -1,18 +1,17 @@
 <nav id="nav" class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid" [class.loading]="loading">
-    <div class="navbar-header">
+	<div class="container-fluid" [class.loading]="loading">
+		<div class="navbar-header">
 
-        <a class="navbar-brand" href="#">
-          <span class="glyphicon glyphicon-cd" [class.spin]="loading" aria-hidden="true"></span>
-          CDO Quick-Data Tool
-        </a>       
-       <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="date" class="form-control date" [(ngModel)]="date" [ngModelOptions]="{standalone: true}">
-        </div>
-       </form>
-       
-    </div>
-  </div>
+			<a class="navbar-brand" href="#">
+				<span class="glyphicon glyphicon-cd" [class.spin]="loading" aria-hidden="true"></span> CDO Quick-Data Tool
+			</a>
+			<form class="navbar-form navbar-left" role="search">
+				<div class="form-group">
+					<input type="date" class="form-control date" [(ngModel)]="date" [ngModelOptions]="{standalone: true}">
+				</div>
+			</form>
+
+		</div>
+	</div>
 </nav>
 <div id="map" (window:resize)="onResize($event)"></div>

@@ -9,16 +9,16 @@ import { AppComponent } from './app.component';
 import { CdoService } from './cdo-service.service';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    AppRoutingModule
-  ],
-  providers: [CdoService],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent
+	],
+	imports: [
+		BrowserModule,
+		FormsModule,
+		HttpModule,
+		AppRoutingModule
+	],
+	providers: [CdoService],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

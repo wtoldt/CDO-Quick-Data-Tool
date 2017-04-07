@@ -1,8 +1,8 @@
 
 export class CdoResponse {
-    metadata: any = {};
-    results: any[] = [];
+	metadata: any = {};
+	results: any[] = [];
 
-    constructor () { }
+	constructor() { }
 
 }
