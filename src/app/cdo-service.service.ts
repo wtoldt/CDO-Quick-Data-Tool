@@ -25,12 +25,12 @@ export class CdoService {
 			.catch(error => this.handleError(error));
 	}
 
-	getData(): Observable<CdoResponse> {
+	getData(stationid: string, date: string): Observable<CdoResponse> {
 
 		let headers = new Headers();
 		headers.set('token', this.token);
 
-		let url = `${this.baseUrl}/data?datasetid=GHCND&staitonid=GHCND:US1NCBC0051&startdate=2017-03-01&enddate=2017-03-02&units=metric`
+		let url = `${this.baseUrl}/data?datasetid=GHCND&stationid=${stationid}&startdate=${date}&enddate=${date}&units=metric&datatypeid=TAVG`;
 
 
 		return this.http.get(url, { 'headers': headers })

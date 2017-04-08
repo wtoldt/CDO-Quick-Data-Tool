@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 	cdoResponse = new CdoResponse();
 	map: any;
 	markerLayer: any = L.layerGroup();
-	date = "";
+	date = '';
 	loading = false;
 
 	constructor(private cdoService: CdoService) { }
@@ -81,16 +81,33 @@ export class AppComponent implements OnInit {
 	refreshStationMarkers(stations: CdoStation[]) {
 		this.markerLayer.clearLayers();
 		stations.forEach((station: CdoStation) => {
-			this.markerLayer.addLayer(
-				L.marker(
+			// Make the marker...
+			let marker = L.marker(
 					[station.latitude, station.longitude],
-					{ icon: L.AwesomeMarkers.icon({ icon: 'record', markerColor: 'red', prefix: 'glyphicon' }) }).bindPopup(this.makePopupContent(station))
-			);
+					{ icon: L.AwesomeMarkers.icon({ icon: 'record', markerColor: 'red', prefix: 'glyphicon' }) }).bindPopup(this.makePopupContent(station, null));
+			this.markerLayer.addLayer(marker);
+
+			// Then get the rest of the content on click
+			marker.on('click', () => {
+				this.cdoService.getData(station.id, this.date)
+				.subscribe( (cdoResponse: CdoResponse) => {
+					// Should only be one result
+					let tavg = cdoResponse.results[0].value;
+					console.log(tavg);
+					marker.setPopupContent(this.makePopupContent(station, tavg));
+				});
+			});
 		});
 	}
 
-	makePopupContent(station: CdoStation): string {
-		let content = `
+	makePopupContent(station: CdoStation, tavg: string): string {
+		let innerContent: string;
+		if (tavg != null) {
+			innerContent = `<strong>Average Temp:</strong> <h2>${tavg}<sup>&deg;c</sup></h2>`;
+		} else {
+			innerContent = '<h1><span class="glyphicon glyphicon-cd spin" aria-hidden="true"></span></h1>';
+		}
+		const content = `
 			<div class="container-fluid">
 				<div class="row">
 
@@ -102,7 +119,7 @@ export class AppComponent implements OnInit {
 					</div>
 
 					<div class="col-md-12" style="text-align:center">
-						<h1><span class="glyphicon glyphicon-cd spin" aria-hidden="true"></span></h1>
+						${innerContent}
 					</div>
 
 				</div>
