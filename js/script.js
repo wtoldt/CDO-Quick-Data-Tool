@@ -98,7 +98,7 @@ var QuickDataTool = (function () {
 			autocomplete,
 			cdoToken = 'IdNEXjwZWEjvmkHMrRgJLNfxijCdyzFC',
 			cdoApi = {
-				base: 'http://www.ncdc.noaa.gov/cdo-web/api/v2',
+				base: 'https://www.ncdc.noaa.gov/cdo-web/api/v2',
 				stations: '/stations',
 				datasets: '/datasets',
 				data: '/data'
